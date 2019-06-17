@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+export http_proxy=http://csez-s500:8080/
+
+macdetails=$(curl -Gs "https://api.macaddress.io/v1?apiKey=at_j2YdcHWY1QH2N3B2VhsLhMJXjlfC4&output=json&search=$1")
+
+for dirname in $(sh /root/loop.sh)
+do
+echo "macdetails $dirname"
+done
