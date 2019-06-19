@@ -1,11 +1,27 @@
-#!/usr/bin/env bash
+#!/usr/bin/bash
+cwd=$(pwd)
+filepath=$cwd/fnamef
+
+if [ -f $filepath ]
+then
+    if [ -s $filepath ]
+    then
+        echo ""
+    else
+        echo "File exists but empty"
+        exit
+    fi
+else
+    echo "File not exists $filepath"
+    exit
+fi
+
 read -p " Enter the apikey : " apikey
-#read -p " Enter the MacAddress : " MacAddress
-read -p "Enter the Field Name ex vendorDetails (or with subfield) vendorDetails.companyName : " fieldname
-#echo $macdetails
-#macdetails=$(/usr/bin/curl -Gs "https://api.macaddress.io/v1?apiKey=$apikey&output=json&search=$1")
+
+read -p "Enter the Field Name : " fieldname
+
 input="/home/san/test/MacAddress/fname"
 while IFS= read -r line
 do
-	curl -Gs "https://api.macaddress.io/v1?apiKey=$apikey&output=json&search=$1"$line | jq ".$fieldname"
+        curl -Gs "https://api.macaddress.io/v1?apiKey=$apikey&output=json&search=$1"$line | jq ".$fieldname"
 done < "$input"
